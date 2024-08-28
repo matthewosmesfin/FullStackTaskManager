@@ -1,0 +1,10 @@
+{  
+    "realm": "myfirstrealm",  
+    "auth-server-url": "http://keycloak-server/auth",  
+    "ssl-required": "external",  
+    "resource": "confidential-client",  
+    "credentials": {  
+        "secret": "f2dbWwZtXLpFXHpW0G6UVksp2UakqEQd"  
+    },  
+    "confidential-port": 0  
+}
