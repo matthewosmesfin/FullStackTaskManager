@@ -64,6 +64,7 @@ MIDDLEWARE = [
 
     #for keycloak
     'allauth.account.middleware.AccountMiddleware',
+    'users.keycloak_middleware.KeycloakMiddleware',
 ]
 
 ROOT_URLCONF = 'backend.urls'

@@ -1,4 +1,4 @@
-from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, Group, Permission
+from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, Permission
 from django.db import models
 from .managers import CustomUserManager  # Make sure you import the custom user manager
 
@@ -11,7 +11,8 @@ class Users(AbstractBaseUser, PermissionsMixin):
 
     date_joined = models.DateTimeField(auto_now_add=True)
     
-    groups = models.ManyToManyField(Group, related_name='custom_user_groups')  # Avoid clash
+    # Remove the groups field
+    # groups = models.ManyToManyField(Group, related_name='custom_user_groups')  # Avoid clash
     user_permissions = models.ManyToManyField(Permission, related_name='custom_user_permissions')  # Avoid clash
 
     objects = CustomUserManager()  # Use the custom user manager

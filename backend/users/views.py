@@ -1,18 +1,13 @@
 #from django.contrib.auth.models import Group, User
-from django.contrib.auth.models import Group
+# from django.contrib.auth.models import Group
 
 from django.contrib.auth import get_user_model
-
 from rest_framework import permissions, viewsets
-
-from .serializers import GroupSerializer, UserSerializer
-
+from .serializers import UserSerializer
 from .tasks import send_task_creation_message  # Import your RabbitMQ sending function
-
-from rest_framework.permissions import AllowAny #for testing
+from rest_framework.permissions import IsAuthenticated  # Updated
 
 User = get_user_model()
-
 
 class UserViewSet(viewsets.ModelViewSet):
     """
@@ -20,9 +15,7 @@ class UserViewSet(viewsets.ModelViewSet):
     """
     queryset = User.objects.all().order_by('email')
     serializer_class = UserSerializer
-
-    # permission_classes = [permissions.IsAuthenticated]
-    permission_classes = [AllowAny] # for testing
+    permission_classes = [IsAuthenticated]  # Changed to IsAuthenticated
 
     def perform_create(self, serializer):
         try:
@@ -42,10 +35,10 @@ class UserViewSet(viewsets.ModelViewSet):
             print(f"Error in perform_create: {e}")
 
 
-class GroupViewSet(viewsets.ModelViewSet):
-    """
-    API endpoint that allows groups to be viewed or edited.
-    """
-    queryset = Group.objects.all().order_by('name')
-    serializer_class = GroupSerializer
-    permission_classes = [permissions.IsAuthenticated]
+# class GroupViewSet(viewsets.ModelViewSet):
+#     """
+#     API endpoint that allows groups to be viewed or edited.
+#     """
+#     queryset = Group.objects.all().order_by('name')
+#     serializer_class = GroupSerializer
+#     permission_classes = [permissions.IsAuthenticated]
